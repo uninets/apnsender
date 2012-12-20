@@ -35,7 +35,7 @@ type APS struct {
 
 func New(config *APSConfig) (a APS, err error) {
     if checkConfig(config) {
-        a = APS{Config: config}
+        a = APS{Config: *config}
     } else {
         err = errors.New("Config check failed.")
         return
