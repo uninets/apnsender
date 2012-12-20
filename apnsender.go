@@ -10,21 +10,11 @@ import (
     "strconv"
 )
 
+
+
 type Device struct {
     Token string
     Timestamp uint32
-}
-
-type APSConfig struct {
-    Host string
-    Port uint16
-    FeedbackHost string
-    FeedbackPort uint16
-    FeedbackInterval uint
-    SSL struct {
-        Cert string
-        Key string
-    }
 }
 
 type Message struct {
@@ -57,15 +47,15 @@ func New(config APSConfig) (a APS, err error) {
 func (a *APS) Connect() (err error) {
     // load certificate from files
     cert, err := tls.LoadX509KeyPair(
-        a.Config.SSL.Cert,
-        a.Config.SSL.Key,
+        a.Config.sslCert,
+        a.Config.sslKey,
     )
     if err != nil { return }
 
     // connect to apple push service
     conn, err := net.Dial(
         "tcp",
-        a.Config.Host + ":" + strconv.Itoa(int(a.Config.Port)),
+        a.Config.host + ":" + strconv.Itoa(int(a.Config.port)),
     )
 
     if err != nil { return }
