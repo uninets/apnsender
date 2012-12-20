@@ -33,7 +33,7 @@ type APS struct {
     Connection net.Conn
 }
 
-func New(config APSConfig) (a APS, err error) {
+func New(config *APSConfig) (a APS, err error) {
     if checkConfig(config) {
         a = APS{Config: config}
     } else {
@@ -74,7 +74,7 @@ func (a *APS) Connect() (err error) {
     return
 }
 
-func checkConfig(config APSConfig) bool {
+func checkConfig(config *APSConfig) bool {
     return true
 }
 
